@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VitaFlow - Familiecockpit André Moons</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f3ee;
+      --surface:#fff;
+      --surface-soft:#f4efe8;
+      --warm:#fcf8f2;
+      --text:#2d2a24;
+      --muted:#706a64;
+      --primary:#246a73;
+      --secondary:#7f5aa2;
+      --success:#5e7f45;
+      --warning:#b9772f;
+      --danger:#b44c58;
+      --border:#ddd5ca;
+      --shadow:0 10px 24px rgba(56,43,26,.06);
+      --radius:22px;
+      --font:'Satoshi', Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:var(--font);
+      background:radial-gradient(circle at top left,#fbf7f1 0%,#f6f3ee 45%),var(--bg);
+      color:var(--text);
+    }
+    .app{max-width:1080px;margin:0 auto;padding:24px}
+    .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+    .title small{color:var(--primary);font-weight:700}
+    .title h1{margin:4px 0 8px;font-size:clamp(2rem,1.5rem + 1vw,2.7rem)}
+    .title p{margin:0;max-width:720px;color:var(--muted)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .button{
+      border:none;border-radius:16px;padding:14px 18px;font-weight:700;cursor:pointer;min-height:50px
+    }
+    .button.primary{background:var(--primary);color:#fff}
+    .button.secondary{background:#fff;color:var(--text);border:1px solid var(--border)}
+    .hero,.card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .hero{padding:28px;margin-bottom:18px}
+    .hero-grid,.grid-2,.grid-3{display:grid;gap:18px}
+    .hero-grid{grid-template-columns:1.15fr .85fr}
+    .grid-2{grid-template-columns:1fr 1fr}
+    .grid-3{grid-template-columns:repeat(3,1fr);margin-top:18px}
+    .status{
+      display:flex;gap:14px;align-items:flex-start;background:var(--surface-soft);
+      border-radius:18px;padding:16px;margin-top:18px;
+    }
+    .dot{
+      width:16px;height:16px;border-radius:50%;background:var(--warning);
+      box-shadow:0 0 0 6px rgba(185,119,47,.12);margin-top:4px;min-width:16px;
+    }
+    .focus{
+      background:var(--warm);border:1px solid #eadfce;border-radius:18px;padding:18px;
+    }
+    .focus .label{color:var(--primary);font-weight:700;font-size:.95rem;margin-bottom:6px}
+    .focus strong{display:block;font-size:1.18rem;margin-bottom:6px}
+    .card{padding:22px}
+    .card h3{margin:0 0 8px;font-size:1.3rem}
+    .card p{margin:0 0 14px;color:var(--muted)}
+    .item{
+      background:var(--surface-soft);border-radius:16px;padding:14px;margin-top:12px;
+    }
+    .item strong{display:block;margin-bottom:4px}
+    .upload-box{
+      background:var(--surface-soft);border-radius:16px;padding:14px;margin-top:12px;
+    }
+    .upload-box input{margin-top:12px;width:100%;font:inherit}
+    .file-list{display:grid;gap:10px;margin-top:12px}
+    .file-item{
+      padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:14px;font-size:.96rem
+    }
+    .burden{
+      height:18px;background:#eadff4;border-radius:999px;overflow:hidden;margin:14px 0 10px;
+    }
+    .burden > span{
+      display:block;height:100%;width:58%;background:var(--secondary);transition:width .2s ease;
+    }
+    .kpi{font-size:2rem;font-weight:700;line-height:1;margin-bottom:8px}
+    .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:#fff;margin-top:14px}
+    table{width:100%;border-collapse:collapse;min-width:620px}
+    th,td{padding:14px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    th{background:#fcfbf8;color:var(--muted);font-weight:700}
+    .pill{
+      display:inline-block;padding:8px 12px;border-radius:999px;font-size:.92rem;font-weight:700;
+      background:var(--surface-soft);border:1px solid #e4ddd1;
+    }
+    .pill.ok{background:#eef6e8;border-color:#d6e7c8;color:#45662f}
+    .pill.now{background:#fff3ea;border-color:#efd8c8;color:#8d4a19}
+    .pill.later{background:#ece8ff;border-color:#d8cff6;color:#64458b}
+    .chip{
+      display:inline-block;padding:8px 12px;border-radius:999px;background:var(--surface-soft);
+      border:1px solid #e4ddd1;font-size:.9rem;margin-right:8px;margin-top:8px
+    }
+    @media (max-width:920px){
+      .hero-grid,.grid-2,.grid-3{grid-template-columns:1fr;}
+    }
+    @media (max-width:680px){
+      .app{padding:16px}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="title">
+        <small>VitaFlow</small>
+        <h1>Familiecockpit – André Moons</h1>
+        <p>
+          Eenvoudig overzicht voor Lisa en Tom: ontslaginformatie, taakverdeling,
+          praktische opvolging en bescherming van de draagkracht van Lisa.
+        </p>
+      </div>
+      <div class="actions">
+        <button class="button secondary" onclick="alert('Hier kan later contact met verpleegkundige Karin of huisarts komen.')">Contact zorgteam</button>
+        <button class="button primary" onclick="rebalanceTasks()">Taken beter verdelen</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h2 style="margin:0 0 10px;font-size:clamp(1.6rem,1.2rem + 1vw,2rem)">Wat vraagt vandaag aandacht?</h2>
+          <p class="muted" style="margin:0;">
+            VitaFlow helpt het digitale zwarte gat na ontslag te overbruggen. Je ziet hier alleen
+            wat vandaag echt telt: medicatie, praktische taken, mobiliteit en mantelzorgbelasting.
+          </p>
+
+          <div class="status">
+            <span class="dot" id="familyDot"></span>
+            <div>
+              <strong id="familyTitle">Er is extra aandacht nodig voor medicatie en taakverdeling.</strong>
+              <span class="muted" id="familyText">
+                Lisa blijft hoofdcontact, maar taken worden bewust gespreid om overbelasting te vermijden.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="focus">
+          <div class="label">Vandaag de kern</div>
+          <strong>Niet alles hoeft bij Lisa te liggen.</strong>
+          <div class="muted">Taken spreiden beschermt de draagkracht van het gezin.</div>
+
+          <div class="chip">iSupport-principe</div>
+          <div class="chip">Zarit-denken</div>
+          <div class="chip">Praktische verdeling</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h3>Documenten & AI-ingestie</h3>
+        <p>
+          Lisa uploadde de ontslaginformatie via foto-van-het-scherm. VitaFlow haalde daaruit
+          belangrijke medische en praktische elementen voor verdere opvolging.
+        </p>
+
+        <div class="upload-box">
+          <strong>Nieuw document toevoegen</strong>
+          <div class="muted">Bijvoorbeeld ontslagbrief, bloedresultaat, foto van medicatieschema of apotheekbewijs.</div>
+          <input type="file" id="familyUpload" multiple />
+          <div class="file-list" id="familyFileList">
+            <div class="file-item"><strong>Uitslag_Bloedonderzoek.pdf</strong><br><span class="muted">AI ingelezen via familiecockpit</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <strong>Belangrijke extractie</strong>
+          <span class="muted">eGFR 31 ml/min, Bactrim Forte 800/160 mg 2x/dag, recente opname neurologie/geriatrie, nood aan veilige thuisopvolging.</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Jouw draagkracht</h3>
+        <p>Mantelzorg moet haalbaar blijven.</p>
+
+        <div class="item" style="background:#faf5ff;border:1px solid #e6d8f2;">
+          <strong>Snelle belasting-inschatting</strong>
+          <div class="burden"><span id="burdenFill"></span></div>
+          <div class="kpi" id="burdenScore">58 / 100</div>
+          <div class="muted" id="burdenText">
+            Licht verhoogde belasting. Spreiden van taken is vandaag verstandig.
+          </div>
+        </div>
+
+        <div class="item">
+          <strong>Beschermende afspraak</strong>
+          <span class="muted">Tom neemt praktische taken op. Thuisverpleging neemt metingen op. Lisa blijft niet alleen verantwoordelijk.</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-2" style="margin-top:18px;">
+      <article class="card">
+        <h3>Wat VitaFlow vandaag opmerkt</h3>
+        <div class="item">
+          <strong>Medicatieveiligheid vraagt review</strong>
+          <span class="muted">De nurseline volgt een mogelijk aandachtspunt rond dosis en nierfunctie op met de huisarts.</span>
+        </div>
+        <div class="item">
+          <strong>Valpreventie actief</strong>
+          <span class="muted">André stapt dagelijks een stukje met zijn rollator. Lisa ondersteunt mee vóór 18:00.</span>
+        </div>
+        <div class="item">
+          <strong>Mentale alertheid mee opvolgen</strong>
+          <span class="muted">Na ontslag blijft opvolging van verwardheid of verandering in gedrag belangrijk.</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Wie doet wat?</h3>
+        <p>Heldere taakverdeling in plaats van losse verwachtingen.</p>
+
+        <div class="table-wrap">
+          <table id="taskTable">
+            <tr>
+              <th>Taak</th>
+              <th>Wie</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>Korte wandeling met André voor 18:00</td>
+              <td>Lisa</td>
+              <td><span class="pill now">Vandaag</span></td>
+            </tr>
+            <tr>
+              <td>Medicatie ophalen bij Apotheek Vooruit</td>
+              <td>Tom</td>
+              <td><span class="pill later">Deze namiddag</span></td>
+            </tr>
+            <tr>
+              <td>Bloeddruk meten</td>
+              <td>Thuisverpleging</td>
+              <td><span class="pill now">Bij volgend bezoek</span></td>
+            </tr>
+            <tr>
+              <td>Afstemming met huisarts over medicatie</td>
+              <td>Vpk. Karin</td>
+              <td><span class="pill now">In opvolging</span></td>
+            </tr>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-3">
+      <article class="card">
+        <h3>Open taken</h3>
+        <div class="kpi" id="openTasks">4</div>
+        <div class="muted">Praktisch en haalbaar verdeeld.</div>
+      </article>
+      <article class="card">
+        <h3>Belangrijke signalen</h3>
+        <div class="kpi">3</div>
+        <div class="muted">Medicatie, mobiliteit en draagkracht.</div>
+      </article>
+      <article class="card">
+        <h3>Hoofdcontact</h3>
+        <div class="kpi">Lisa</div>
+        <div class="muted">Met ondersteuning van Tom en zorgteam.</div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    function rebalanceTasks() {
+      document.getElementById('taskTable').innerHTML = `
+        <tr>
+          <th>Taak</th>
+          <th>Wie</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Korte wandeling met André voor 18:00</td>
+          <td>Lisa</td>
+          <td><span class="pill now">Vandaag</span></td>
+        </tr>
+        <tr>
+          <td>Medicatie ophalen bij Apotheek Vooruit</td>
+          <td>Tom</td>
+          <td><span class="pill now">Vertrokken</span></td>
+        </tr>
+        <tr>
+          <td>Bloeddruk meten</td>
+          <td>Thuisverpleging</td>
+          <td><span class="pill now">Ingepland</span></td>
+        </tr>
+        <tr>
+          <td>Extra telefonische check met Lisa</td>
+          <td>Vpk. Karin</td>
+          <td><span class="pill later">Later vandaag</span></td>
+        </tr>
+      `;
+      document.getElementById('burdenScore').textContent = '49 / 100';
+      document.getElementById('burdenFill').style.width = '49%';
+      document.getElementById('burdenText').textContent = 'Door de taken beter te spreiden daalt de druk op Lisa.';
+      document.getElementById('familyTitle').textContent = 'De taakverdeling is nu beter in evenwicht.';
+      document.getElementById('familyText').textContent = 'Lisa blijft hoofdcontact, maar praktische taken zijn duidelijker verdeeld.';
+      document.getElementById('familyDot').style.background = 'var(--success)';
+      document.getElementById('familyDot').style.boxShadow = '0 0 0 6px rgba(94,127,69,.12)';
+      document.getElementById('openTasks').textContent = '3';
+    }
+
+    document.getElementById('familyUpload').addEventListener('change', function(event){
+      const files = Array.from(event.target.files);
+      const list = document.getElementById('familyFileList');
+      if (!files.length) return;
+      const html = files.map(file => `
+        <div class="file-item">
+          <strong>${file.name}</strong><br>
+          <span class="muted">${Math.round(file.size / 1024)} KB</span>
+        </div>
+      `).join('');
+      list.innerHTML = html;
+    });
+  </script>
+</body>
+</html>
