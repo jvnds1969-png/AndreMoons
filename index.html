@@ -1,0 +1,67 @@
+Document voor ChatGPT: VitaFlow Casus – André Moons (Wetenschappelijk & Klinisch Kader)
+Kopieer de onderstaande tekst in zijn geheel en plak deze in ChatGPT om de bestaande code en prompts te herwerken naar dit evidence-based, realistische scenario.
+
+--------------------------------------------------------------------------------
+1. Patiëntprofiel & Context: André Moons
+Patiënt: André Moons, 81 jaar
+.
+Ontslag: Recent ontslagen van de afdeling Neurologie/Geriatrie
+. Het doel van VitaFlow hier is het "digitale zwarte gat" en dataverlies bij de transitie van ziekenhuis naar de thuissituatie te overbruggen
+.
+Informeel Zorgnetwerk: Dochter Lisa (mantelzorger, beheerder Familiecockpit), zoon Tom (praktische taken)
+.
+Formeel Zorgnetwerk: Thuisverpleging (dagelijks), Huisarts dr. Peeters, VitaFlow g-AMIE Nurseline (Vpk. Karin)
+.
+2. Medische & Klinische Status (De AI-Extractie)
+Document-ingestie: Dochter Lisa uploadt de ontslagbrief (Uitslag_Bloedonderzoek.pdf) via de 'foto-van-het-scherm' functionaliteit in de VitaFlow Familiecockpit
+.
+Multimodale AI (MedGemma) Analyse:
+Nierfunctie: eGFR (MDRD) is 31 ml/min, wat wijst op chronische nierinsufficiëntie stadium 3b
+.
+Medicatie: De patiënt is ontslagen met antibiotica voor een urineweginfectie: Bactrim Forte 800/160mg 2x/dag
+.
+Klinisch Risico (Nurseline Alert): Gezien de verminderde nierklaring is de actuele dosis Bactrim te hoog, wat risico geeft op hyperkaliëmie en verdere nierschade
+.
+3. Wetenschappelijk Kader: De 4Ms (Age-Friendly Health Systems)
+De VitaFlow-codes en agents moeten de zorg aansturen volgens het 4Ms Framework (What Matters, Medication, Mentation, Mobility)
+:
+Medication (Medicatie): Vermijden en afbouwen van hoog-risico medicatie, en dosisaanpassingen doen op basis van de fysiologische status van de oudere
+. VitaFlow Actie: De AI stuurt een waarschuwing naar de klinische cockpit, waarna verpleegkundige Karin de huisarts contacteert om de Bactrim-dosis te halveren
+. Tevens wordt via de app een extra vochtinname (500ml/24u) als afvinkbare taak aan André en de thuisverpleging doorgegeven
+.
+Mobility (Mobiliteit): Zorgen voor veilige dagelijkse beweging
+. Dit is verankerd in de wetenschappelijke richtlijnen voor valpreventie
+.
+Mentation (Mentaal welzijn/Cognitie): Screenen op en opvolgen van delier, dementie en depressie
+.
+What Matters (Wat belangrijk is): Het zorgplan afstemmen op de persoonlijke gezondheidsdoelen en voorkeuren van de patiënt
+.
+4. Actieve Zorgbundels (Care Bundles)
+De AI 'Discharge Task Engine' vertaalt de medische data naar actieve zorgbundels met specifieke taken
+:
+A. Zorgbundel: Valpreventie & Mobiliteit
+Wetenschappelijke basis: Gebaseerd op het CDC STEADI-protocol (Stopping Elderly Accidents, Deaths, and Injuries)
+. Dit omvat risicoscreening, aanpakken van valgevaren in huis en oefeningen voor balans en kracht
+.
+Taken in VitaFlow:
+Patiënt (André): Dagelijks een stukje stappen met de rollator (visuele cues gebruiken)
+.
+Familie (Lisa): Samen een korte wandeling maken voor 18:00 uur (gedeelde taak in de cockpit)
+.
+B. Zorgbundel: Mantelzorgbelasting & Welzijn
+Wetenschappelijke basis: Mantelzorgers ervaren vaak een hoge belasting, stress en depressie
+. Deze belasting wordt klinisch gemeten via gevalideerde schalen zoals de Zarit Caregiver Burden Scale
+. Psycho-educatieve programma's voor mantelzorgers (zoals het WHO iSupport framework) reduceren aantoonbaar stress en verbeteren de kwaliteit van leven
+.
+Taken in VitaFlow:
+Familiecockpit: Taken worden verdeeld (Zoon Tom haalt medicatie op bij 'Apotheek Vooruit', thuisverpleging meet bloeddruk) om de draagkracht van Lisa te beschermen
+.
+5. Instructies voor de AI/ChatGPT (Prompt voor de Developer)
+"Herschrijf de bestaande VitaFlow systeem-prompts, JSON-configuraties en UI-simulatiecodes op basis van bovenstaande casus van André Moons.
+Zorg dat de codes het volgende weerspiegelen:
+De Agent State (Patiënt Avatar): Definieer een JSON-object dat André's parameters opslaat, waaronder de eGFR van 31 en actuele medicatie, gebaseerd op de principes van het Comprehensive Geriatric Assessment (CGA) dat medische, functionele en sociale noden in kaart brengt
+.
+Nurseline Triage Systeem: Implementeer een logica (SOAP-notitie generatie) waarbij de AI de eGFR-waarde afweegt tegen de Bactrim-dosis
+. De AI mag zelf géén diagnose stellen, maar genereert een rood/oranje stoplicht-alert in het dashboard van Vpk. Karin met een concept P (Plan) om de huisarts te bellen
+.
+Taak-Generatie & Familiecockpit: Schrijf de code voor de 'Discharge Task Engine' die automatisch taken verdeelt over de 3 interfaces (Patiënt-app, Familiecockpit, en de Nurseline) met referentie naar de STEADI-gebaseerde valpreventie en de iSupport-gebaseerde mantelzorgondersteuning."
