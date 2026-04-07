@@ -3,491 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VitaFlow - Nurseline Cockpit André Moons</title>
+  <title>VitaFlow Demo</title>
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f4f6f8;
+      --bg:#f6f3ee;
       --surface:#fff;
-      --surface-soft:#f8fafc;
-      --surface-soft-2:#f1f5f9;
-      --text:#1f2937;
-      --muted:#667085;
-      --primary:#0f5ea8;
-      --success:#1f7a3d;
-      --warning:#b26b00;
-      --danger:#b42318;
-      --border:#d9e1ea;
-      --shadow:0 10px 24px rgba(16,24,40,.06);
-      --radius:20px;
+      --text:#2d2a24;
+      --muted:#6f6a63;
+      --primary:#246a73;
+      --border:#ddd5ca;
+      --shadow:0 12px 28px rgba(0,0,0,0.06);
+      --radius:22px;
       --font:'Satoshi', Arial, sans-serif;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text)}
-    .layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
-    aside{
-      background:#0f172a;color:#fff;padding:24px 18px;border-right:1px solid rgba(255,255,255,.06)
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:radial-gradient(circle at top left,#fbf7f1 0%,#f6f3ee 45%),var(--bg);
+      color:var(--text);
     }
-    .brand h1{margin:0 0 4px;font-size:1.5rem}
-    .brand p{margin:0 0 22px;color:#b8c1d1;font-size:.96rem}
-    .nav-label{
-      color:#91a0b8;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 8px
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:40px 20px;
     }
-    .nav-item{
-      padding:12px 14px;border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,.04)
+    .hero{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:32px;
     }
-    .nav-item.active{
-      background:rgba(15,94,168,.28);border:1px solid rgba(147,197,253,.18)
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,1.5rem + 1vw,3rem);
+      line-height:1.08;
     }
-    main{padding:20px}
-    .topbar{
-      display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px
+    p{
+      color:var(--muted);
+      font-size:1.05rem;
     }
-    .title h2{margin:0;font-size:clamp(1.5rem,1.15rem + 1vw,2rem)}
-    .title p{margin:6px 0 0;color:var(--muted)}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    button{font:inherit;cursor:pointer}
-    .button{
-      border:none;border-radius:12px;padding:12px 16px;font-weight:700;min-height:46px
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:24px;
     }
-    .button.primary{background:var(--primary);color:#fff}
-    .button.secondary{background:#fff;color:var(--text);border:1px solid var(--border)}
-    .banner{
-      padding:14px 16px;border-radius:14px;margin-bottom:16px;font-weight:600;
-    }
-    .banner.orange{background:#fff8e8;border:1px solid #f3d59a;color:#8a5a00}
-    .banner.red{background:#fff0f0;border:1px solid #f1b5b5;color:#972a22}
-    .grid-3,.grid-2{display:grid;gap:16px}
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .grid-2{grid-template-columns:1.2fr .8fr}
     .card{
-      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-      box-shadow:var(--shadow);padding:18px
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      text-decoration:none;
+      color:inherit;
+      box-shadow:var(--shadow);
     }
-    .card h3{margin:0 0 8px;font-size:1.18rem}
-    .card p{margin:0 0 14px;color:var(--muted)}
-    .kpi{font-size:2rem;font-weight:700;line-height:1;margin-bottom:8px}
-    .mini-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .mini-tag{
-      background:var(--surface-soft-2);border:1px solid var(--border);border-radius:999px;
-      padding:8px 10px;font-size:.88rem
+    .card strong{
+      display:block;
+      font-size:1.2rem;
+      margin-bottom:8px;
+      color:var(--primary);
     }
-    .section-box{
-      background:var(--surface-soft);border:1px solid var(--border);border-radius:14px;padding:14px;margin-top:12px
+    .tag{
+      display:inline-block;
+      margin-top:12px;
+      padding:8px 12px;
+      background:#edf5f5;
+      border-radius:999px;
+      font-size:.92rem;
+      color:var(--primary);
+      font-weight:700;
     }
-    .section-box strong{display:block;margin-bottom:4px}
-    .badge{
-      display:inline-block;padding:6px 10px;border-radius:999px;font-size:.8rem;font-weight:700
-    }
-    .badge-red{background:#fee4e2;color:var(--danger)}
-    .badge-orange{background:#fff4dc;color:var(--warning)}
-    .badge-blue{background:#dce9f7;color:var(--primary)}
-    .badge-green{background:#eaf7ef;color:var(--success)}
-    .table-wrap{
-      overflow:auto;border:1px solid var(--border);border-radius:16px;background:#fff;margin-top:14px
-    }
-    table{width:100%;border-collapse:collapse;min-width:900px}
-    th,td{padding:12px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
-    th{background:#f8fafc;color:var(--muted);font-weight:700}
-    .log-list{display:grid;gap:10px;margin-top:12px}
-    .log-item{
-      background:var(--surface-soft);border:1px solid var(--border);border-radius:14px;padding:12px 14px
-    }
-    .log-meta{color:var(--muted);font-size:.9rem;margin-top:4px}
-    .soap-grid{display:grid;gap:10px;margin-top:12px}
-    .soap-item{
-      background:var(--surface-soft);border:1px solid var(--border);border-radius:14px;padding:12px 14px
-    }
-    .check-action{display:flex;align-items:center;gap:10px}
-    @media (max-width:1100px){
-      .grid-3,.grid-2{grid-template-columns:1fr}
-    }
-    @media (max-width:900px){
-      .layout{grid-template-columns:1fr}
-      aside{padding:18px}
-      main{padding:14px}
+    @media (max-width:860px){
+      .grid{grid-template-columns:1fr;}
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <aside>
-      <div class="brand">
-        <h1>Nurseline</h1>
-        <p>Klinisch werkblad met audit trail en overdracht.</p>
+  <main class="wrap">
+    <section class="hero">
+      <h1>VitaFlow demo – André Moons</h1>
+      <p>
+        Evidence-based demo rond ziekenhuisontslag, medicatieveiligheid, valpreventie,
+        mantelzorgondersteuning en nurseline-opvolging.
+      </p>
+
+      <div class="grid">
+        <a class="card" href="patient.html">
+          <strong>Patiënt-app</strong>
+          Rustige dagweergave voor André, met eenvoudige taken en duidelijke ondersteuning.
+          <div class="tag">What Matters · Medication · Mobility</div>
+        </a>
+
+        <a class="card" href="familie.html">
+          <strong>Familiecockpit</strong>
+          Overzicht voor Lisa en Tom met taken, documenten en mantelzorgbelasting.
+          <div class="tag">What Matters · iSupport</div>
+        </a>
+
+        <a class="card" href="nurseline.html">
+          <strong>Nurseline cockpit</strong>
+          Klinisch werkblad met rood/oranje alert, SOAP en opvolglog.
+          <div class="tag">Medication · Mentation · Mobility · CGA</div>
+        </a>
       </div>
-
-      <div class="nav-label">Werk</div>
-      <div class="nav-item active">Casus André Moons</div>
-      <div class="nav-item">Open medicatie-alerts</div>
-      <div class="nav-item">Discharge bundles</div>
-      <div class="nav-item">Mentation opvolging</div>
-
-      <div class="nav-label">Registratie</div>
-      <div class="nav-item">SOAP</div>
-      <div class="nav-item">Opvolglog</div>
-      <div class="nav-item">Taken per actor</div>
-    </aside>
-
-    <main>
-      <div class="topbar">
-        <div class="title">
-          <h2>André Moons, 81 jaar – ziekenhuis naar thuis</h2>
-          <p>
-            Recent ontslag neurologie/geriatrie. Multimodale AI detecteerde een mogelijk medicatiegerelateerd veiligheidsrisico
-            op basis van ontslaginformatie en nierfunctie.
-          </p>
-        </div>
-
-        <div class="actions">
-          <button class="button secondary" onclick="toggleAlertLevel()">Wissel alertniveau</button>
-          <button class="button primary" onclick="runDischargeEngine()">Run discharge task engine</button>
-        </div>
-      </div>
-
-      <div class="banner red" id="alertBanner">
-        <strong>Rood medicatie-alert:</strong> eGFR 31 ml/min in combinatie met actuele Bactrim Forte 800/160 mg 2x/dag vraagt snelle klinische review.
-        VitaFlow stelt géén diagnose, maar adviseert verpleegkundige Karin om huisarts dr. Peeters te contacteren voor dosisverificatie.
-      </div>
-
-      <section class="grid-3">
-        <article class="card">
-          <h3>Alertniveau</h3>
-          <div class="kpi" id="alertLevelKpi">Rood</div>
-          <div class="muted">Medicatieveiligheid met snelle review nodig.</div>
-        </article>
-        <article class="card">
-          <h3>4Ms geraakt</h3>
-          <div class="kpi">4 / 4</div>
-          <div class="muted">Medication, Mobility, Mentation, What Matters.</div>
-        </article>
-        <article class="card">
-          <h3>Actieve bundels</h3>
-          <div class="kpi" id="bundleKpi">2</div>
-          <div class="muted">Valpreventie & mantelzorgwelzijn.</div>
-        </article>
-      </section>
-
-      <section class="grid-2" style="margin-top:16px;">
-        <article class="card">
-          <h3>Agent state – CGA-geïnspireerd profiel</h3>
-          <p>
-            Dit JSON-object bundelt medische, functionele en sociale info als basis voor veilige opvolging.
-          </p>
-
-<pre style="white-space:pre-wrap;background:#0f172a;color:#e5eefc;padding:16px;border-radius:14px;overflow:auto;font-size:.88rem" id="agentStateBox"></pre>
-        </article>
-
-        <article class="card">
-          <h3>AI extractie uit ontslaginfo</h3>
-          <div class="section-box">
-            <strong>Bron</strong>
-            <div>Uitslag_Bloedonderzoek.pdf – geüpload door Lisa via familiecockpit</div>
-          </div>
-          <div class="section-box">
-            <strong>Extractie</strong>
-            <div>eGFR (MDRD) 31 ml/min, Bactrim Forte 800/160 mg 2x/dag, recente UWI, recente opname neurologie/geriatrie</div>
-          </div>
-          <div class="section-box">
-            <strong>AI-beleid</strong>
-            <div>Geen autonome diagnose. Enkel stoplicht-alert en conceptplan voor klinische review door verpleegkundige Karin.</div>
-          </div>
-        </article>
-      </section>
-
-      <section class="grid-2" style="margin-top:16px;">
-        <article class="card">
-          <h3>SOAP conceptnota</h3>
-          <p>Gegenereerd als klinische ondersteuning, niet als definitieve medische beslissing.</p>
-          <div class="soap-grid" id="soapBox"></div>
-        </article>
-
-        <article class="card">
-          <h3>4Ms samenvatting</h3>
-          <div class="section-box"><strong>What Matters</strong><div>André wil veilig thuis blijven, niet terug opgenomen worden en duidelijkheid rond medicatie.</div></div>
-          <div class="section-box"><strong>Medication</strong><div>Let op medicatieveiligheid in relatie tot nierfunctie; huisartscontact voorgesteld.</div></div>
-          <div class="section-box"><strong>Mentation</strong><div>Na ontslag mee screenen op verwardheid, delierachtige signalen en mentale verandering.</div></div>
-          <div class="section-box"><strong>Mobility</strong><div>STEADI-gebaseerde veilige dagelijkse beweging met rollator en aandacht voor valrisico.</div></div>
-        </article>
-      </section>
-
-      <section class="card" style="margin-top:16px;">
-        <h3>Discharge task engine – taken per interface</h3>
-        <p>
-          De engine vertaalt ontslagdata naar afvinkbare acties per patiënt, familie en zorgteam.
-        </p>
-
-        <div class="table-wrap">
-          <table id="engineTable">
-            <tr>
-              <th>Interface</th>
-              <th>Zorgbundel</th>
-              <th>Taak</th>
-              <th>Evidence-basis</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>Patiënt-app</td>
-              <td>Medication</td>
-              <td>Drink 500 ml extra water per 24 uur</td>
-              <td>Veilige opvolging na medicatie-review</td>
-              <td><span class="badge badge-blue">Actief</span></td>
-            </tr>
-            <tr>
-              <td>Patiënt-app</td>
-              <td>Valpreventie & Mobiliteit</td>
-              <td>Dagelijks stukje stappen met rollator</td>
-              <td>STEADI</td>
-              <td><span class="badge badge-blue">Actief</span></td>
-            </tr>
-            <tr>
-              <td>Familiecockpit</td>
-              <td>Valpreventie & Mobiliteit</td>
-              <td>Lisa maakt korte wandeling met André vóór 18:00</td>
-              <td>STEADI</td>
-              <td><span class="badge badge-blue">Actief</span></td>
-            </tr>
-            <tr>
-              <td>Familiecockpit</td>
-              <td>Mantelzorgbelasting & Welzijn</td>
-              <td>Tom haalt medicatie op bij Apotheek Vooruit</td>
-              <td>iSupport / burden reduction</td>
-              <td><span class="badge badge-blue">Actief</span></td>
-            </tr>
-            <tr>
-              <td>Nurseline / thuisverpleging</td>
-              <td>Mantelzorgbelasting & Welzijn</td>
-              <td>Thuisverpleging meet bloeddruk</td>
-              <td>Thuisopvolging</td>
-              <td><span class="badge badge-blue">Actief</span></td>
-            </tr>
-            <tr>
-              <td>Nurseline</td>
-              <td>Medication</td>
-              <td>Vpk. Karin contacteert huisarts dr. Peeters voor dosisverificatie</td>
-              <td>Medication safety / 4Ms</td>
-              <td><span class="badge badge-red">Hoog prioritair</span></td>
-            </tr>
-          </table>
-        </div>
-      </section>
-
-      <section class="grid-2" style="margin-top:16px;">
-        <article class="card">
-          <h3>Afvinkbare opvolgacties</h3>
-          <p>Collega’s zien wat al gedaan is, door wie en wanneer.</p>
-
-          <div class="table-wrap" style="margin-top:0;">
-            <table id="actionTable">
-              <tr>
-                <th>Actie</th>
-                <th>Status</th>
-                <th>Door</th>
-                <th>Tijdstip</th>
-                <th>Afvinken</th>
-              </tr>
-              <tr>
-                <td>Ontslaginfo klinisch nagekeken</td>
-                <td id="status-a1">Open</td>
-                <td id="owner-a1">—</td>
-                <td id="time-a1">—</td>
-                <td><div class="check-action"><input type="checkbox" onchange="toggleAction('a1','Karin')" /></div></td>
-              </tr>
-              <tr>
-                <td>Huisarts dr. Peeters gecontacteerd</td>
-                <td id="status-a2">Open</td>
-                <td id="owner-a2">—</td>
-                <td id="time-a2">—</td>
-                <td><div class="check-action"><input type="checkbox" onchange="toggleAction('a2','Karin')" /></div></td>
-              </tr>
-              <tr>
-                <td>Lisa geïnformeerd over plan</td>
-                <td id="status-a3">Open</td>
-                <td id="owner-a3">—</td>
-                <td id="time-a3">—</td>
-                <td><div class="check-action"><input type="checkbox" onchange="toggleAction('a3','Karin')" /></div></td>
-              </tr>
-              <tr>
-                <td>Extra vochtinname-taak gepubliceerd</td>
-                <td id="status-a4">Open</td>
-                <td id="owner-a4">—</td>
-                <td id="time-a4">—</td>
-                <td><div class="check-action"><input type="checkbox" onchange="toggleAction('a4','Karin')" /></div></td>
-              </tr>
-            </table>
-          </div>
-        </article>
-
-        <article class="card">
-          <h3>Opvolglog / audit trail</h3>
-          <p>Korte overdrachtslog voor collega’s.</p>
-
-          <div class="log-list" id="logList">
-            <div class="log-item">
-              <strong>Document ingestie door familiecockpit geregistreerd</strong>
-              <div class="log-meta">Vandaag 08:12 · systeem</div>
-            </div>
-            <div class="log-item">
-              <strong>AI detecteerde eGFR 31 ml/min en actuele Bactrim-dosering</strong>
-              <div class="log-meta">Vandaag 08:13 · multimodale extractie</div>
-            </div>
-            <div class="log-item">
-              <strong>Medicatie-alert doorgestuurd naar dashboard van Vpk. Karin</strong>
-              <div class="log-meta">Vandaag 08:14 · systeem</div>
-            </div>
-          </div>
-        </article>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    const agentState = {
-      patient: {
-        id: "VF-ANDRE-2026-0001",
-        name: "André Moons",
-        age: 81,
-        recent_discharge_from: "Neurologie/Geriatrie",
-        primary_goal_what_matters: [
-          "veilig thuis blijven",
-          "duidelijkheid over medicatie",
-          "nieuwe opname vermijden"
-        ]
-      },
-      cga_profile: {
-        medical: {
-          diagnosis_context: [
-            "recente urineweginfectie",
-            "chronische nierinsufficiëntie stadium 3b"
-          ],
-          renal_function: {
-            egfr_mdrd: 31,
-            interpretation: "verminderde nierfunctie"
-          },
-          current_medication: [
-            {
-              name: "Bactrim Forte",
-              dose: "800/160 mg",
-              frequency: "2x/dag"
-            }
-          ]
-        },
-        functional: {
-          mobility: "wandelen met rollator",
-          falls_risk_bundle_active: true
-        },
-        mentation: {
-          monitor_for: [
-            "verwardheid",
-            "delier-signalen",
-            "verandering in gedrag of aandacht"
-          ]
-        },
-        social: {
-          daughter_lisa: "mantelzorger / beheerder familiecockpit",
-          son_tom: "praktische ondersteuning",
-          home_nursing: "dagelijks",
-          gp: "dr. Peeters",
-          nurseline_nurse: "Karin"
-        }
-      },
-      ai_guardrails: {
-        may_diagnose: false,
-        may_generate_alert: true,
-        may_propose_plan: true,
-        plan_requires_clinical_review: true
-      }
-    };
-
-    document.getElementById('agentStateBox').textContent = JSON.stringify(agentState, null, 2);
-
-    const soap = {
-      S: "Recent ontslag naar thuissituatie. Familie uploadde ontslaginformatie. Geen autonome diagnose door AI; nood aan klinische review van medicatieveiligheid.",
-      O: "eGFR (MDRD) 31 ml/min. Actuele medicatie: Bactrim Forte 800/160 mg 2x/dag. Context: recente UWI, oudere patiënt na ontslag neurologie/geriatrie.",
-      A: "Medicatiegerelateerd veiligheidsalert: combinatie van verminderde nierfunctie en actuele dosering vraagt beoordeling door verpleegkundige/huisarts. Stoplichtniveau: rood of oranje naargelang klinische context.",
-      P: "Vpk. Karin contacteert huisarts dr. Peeters voor dosisverificatie. Extra vochtinname van 500 ml/24u als taak publiceren. Familie informeren. Verdere opvolging van mobiliteit, mentation en mantelzorgbelasting."
-    };
-
-    const soapBox = document.getElementById('soapBox');
-    Object.entries(soap).forEach(([key, value]) => {
-      const div = document.createElement('div');
-      div.className = 'soap-item';
-      div.innerHTML = `<strong>${key}</strong> ${value}`;
-      soapBox.appendChild(div);
-    });
-
-    function nowString() {
-      return new Date().toLocaleString('nl-BE', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
-
-    function addLog(message, meta) {
-      const logList = document.getElementById('logList');
-      const item = document.createElement('div');
-      item.className = 'log-item';
-      item.innerHTML = `<strong>${message}</strong><div class="log-meta">${meta}</div>`;
-      logList.prepend(item);
-    }
-
-    function toggleAction(id, user) {
-      const cb = event.target;
-      const status = document.getElementById(`status-${id}`);
-      const owner = document.getElementById(`owner-${id}`);
-      const time = document.getElementById(`time-${id}`);
-      const timestamp = nowString();
-
-      if (cb.checked) {
-        status.textContent = 'Afgevinkt';
-        owner.textContent = user;
-        time.textContent = timestamp;
-        addLog(`Actie afgewerkt: ${status.closest('tr').children[0].textContent}`, `${timestamp} · door ${user}`);
-      } else {
-        status.textContent = 'Open';
-        owner.textContent = '—';
-        time.textContent = '—';
-        addLog(`Actie heropend: ${status.closest('tr').children[0].textContent}`, `${nowString()} · door ${user}`);
-      }
-    }
-
-    function toggleAlertLevel() {
-      const banner = document.getElementById('alertBanner');
-      const kpi = document.getElementById('alertLevelKpi');
-
-      if (banner.classList.contains('red')) {
-        banner.classList.remove('red');
-        banner.classList.add('orange');
-        banner.innerHTML = `<strong>Oranje medicatie-alert:</strong> nierfunctie en actuele Bactrim-dosering blijven een aandachtspunt. Klinische review door verpleegkundige Karin blijft aanbevolen; huisartscontact volgens beoordeling.`;
-        kpi.textContent = 'Oranje';
-        addLog('Alertniveau aangepast naar oranje', `${nowString()} · systeemdemo`);
-      } else {
-        banner.classList.remove('orange');
-        banner.classList.add('red');
-        banner.innerHTML = `<strong>Rood medicatie-alert:</strong> eGFR 31 ml/min in combinatie met actuele Bactrim Forte 800/160 mg 2x/dag vraagt snelle klinische review. VitaFlow stelt géén diagnose, maar adviseert verpleegkundige Karin om huisarts dr. Peeters te contacteren voor dosisverificatie.`;
-        kpi.textContent = 'Rood';
-        addLog('Alertniveau aangepast naar rood', `${nowString()} · systeemdemo`);
-      }
-    }
-
-    function runDischargeEngine() {
-      document.getElementById('bundleKpi').textContent = '3';
-      const table = document.getElementById('engineTable');
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>Nurseline</td>
-        <td>Mentation</td>
-        <td>Extra screenen op verwardheid of gedragsverandering na ontslag</td>
-        <td>4Ms – Mentation</td>
-        <td><span class="badge badge-orange">Nieuw</span></td>
-      `;
-      table.appendChild(row);
-      addLog('Discharge task engine genereerde bijkomende mentation-opvolging', `${nowString()} · systeem`);
-    }
-  </script>
+    </section>
+  </main>
 </body>
 </html>
