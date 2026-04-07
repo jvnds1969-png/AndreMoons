@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VitaFlow - André Moons</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f3ee;
+      --surface:#fff;
+      --surface-soft:#f4efe8;
+      --warm:#fcf8f2;
+      --text:#2d2a24;
+      --muted:#706a64;
+      --primary:#246a73;
+      --success:#5e7f45;
+      --warning:#b9772f;
+      --danger:#b44c58;
+      --border:#ddd5ca;
+      --shadow:0 10px 24px rgba(56,43,26,.06);
+      --radius:22px;
+      --font:'Satoshi', Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:radial-gradient(circle at top left,#fbf7f1 0%,#f6f3ee 45%),var(--bg);
+      color:var(--text);
+    }
+    .app{max-width:1040px;margin:0 auto;padding:24px}
+    .topbar{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .brand small{color:var(--primary);font-weight:700}
+    .brand h1{margin:4px 0 8px;font-size:clamp(2rem,1.5rem + 1vw,2.7rem)}
+    .brand p{margin:0;color:var(--muted);max-width:680px}
+    .button{
+      border:none;background:var(--primary);color:#fff;border-radius:16px;
+      padding:14px 18px;font-weight:700;cursor:pointer;min-height:50px;
+    }
+    .hero,.card{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero{padding:28px}
+    .hero-grid,.grid-2,.grid-3{display:grid;gap:18px}
+    .hero-grid{grid-template-columns:1.15fr .85fr}
+    .grid-2{grid-template-columns:1fr 1fr;margin-top:18px}
+    .grid-3{grid-template-columns:repeat(3,1fr);margin-top:18px}
+    .status{
+      display:flex;gap:14px;align-items:flex-start;
+      margin-top:18px;background:var(--surface-soft);
+      border-radius:18px;padding:16px;
+    }
+    .dot{
+      width:16px;height:16px;border-radius:50%;background:var(--success);
+      box-shadow:0 0 0 6px rgba(94,127,69,.12);margin-top:4px;
+      min-width:16px;
+    }
+    .focus{
+      background:var(--warm);
+      border:1px solid #eadfce;
+      border-radius:18px;padding:18px;
+    }
+    .focus .label{color:var(--primary);font-weight:700;font-size:.95rem;margin-bottom:6px}
+    .focus strong{display:block;font-size:1.18rem;margin-bottom:6px}
+    .card{padding:22px}
+    .card h3{margin:0 0 8px;font-size:1.3rem}
+    .card p{margin:0 0 14px;color:var(--muted)}
+    .task{
+      background:var(--surface-soft);
+      border-radius:16px;padding:14px;margin-top:12px;
+      display:flex;gap:14px;align-items:flex-start;
+    }
+    .task-number{
+      width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);
+      display:grid;place-items:center;font-weight:700;color:var(--primary);min-width:36px;
+    }
+    .task strong{display:block}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .chip{
+      background:var(--surface-soft);border:1px solid #e4ddd1;border-radius:999px;
+      padding:9px 13px;font-size:.92rem
+    }
+    .visit,.message{
+      background:var(--surface-soft);border-radius:16px;padding:14px;margin-top:12px;
+    }
+    .kpi{font-size:2rem;font-weight:700;line-height:1;margin-bottom:8px}
+    .muted{color:var(--muted)}
+    .bubble{
+      background:#dceced;border-radius:18px;padding:13px 15px;margin-top:10px;max-width:90%;
+    }
+    .bubble.user{background:#ece8ff;margin-left:auto}
+    .soft-note{
+      background:#fff8ee;border:1px solid #f0dec3;border-radius:16px;padding:15px;margin-top:14px;
+    }
+    @media (max-width:900px){
+      .hero-grid,.grid-2,.grid-3{grid-template-columns:1fr;}
+    }
+    @media (max-width:680px){
+      .app{padding:16px}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <small>VitaFlow</small>
+        <h1>Dag André</h1>
+        <p>
+          We helpen je vandaag stap voor stap. Je ziet alleen wat vandaag echt belangrijk is.
+        </p>
+      </div>
+      <button class="button" onclick="markNeedHelp()">Ik voel me niet goed</button>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h2 style="margin:0 0 10px;font-size:clamp(1.6rem,1.2rem + 1vw,2rem)">Rustig herstel na je ontslag</h2>
+          <p class="muted" style="margin:0;">
+            Je werd recent ontslagen van neurologie/geriatrie. Vandaag letten we op drinken,
+            medicatie, veilig bewegen en duidelijke opvolging thuis.
+          </p>
+
+          <div class="status">
+            <span class="dot" id="statusDot"></span>
+            <div>
+              <strong id="statusTitle">Vandaag is je plan eenvoudig.</strong>
+              <span class="muted" id="statusText">
+                Neem je medicatie zoals afgesproken, drink extra water en maak een korte wandeling met je rollator.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="focus">
+          <div class="label">Wat vandaag telt</div>
+          <strong>3 kleine stappen zijn genoeg.</strong>
+          <div class="muted">Drinken, veilig bewegen en je medicatie juist opvolgen.</div>
+
+          <div class="chips">
+            <span class="chip">Rollator gebruiken</span>
+            <span class="chip">Extra 500 ml drinken</span>
+            <span class="chip">Hulp dichtbij</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h3>Wat je vandaag doet</h3>
+        <p>Alles is eenvoudig en afvinkbaar.</p>
+
+        <div class="task">
+          <div class="task-number">1</div>
+          <div>
+            <strong>Neem je medicatie zoals afgesproken</strong>
+            <div class="muted">VitaFlow volgt mee op of er iets extra moet nagekeken worden.</div>
+          </div>
+        </div>
+
+        <div class="task">
+          <div class="task-number">2</div>
+          <div>
+            <strong>Drink vandaag 500 ml extra water</strong>
+            <div class="muted">Dat helpt om voldoende te drinken tijdens je herstel.</div>
+          </div>
+        </div>
+
+        <div class="task">
+          <div class="task-number">3</div>
+          <div>
+            <strong>Maak een korte wandeling met je rollator</strong>
+            <div class="muted">Rustig tempo, met duidelijke visuele cues in huis.</div>
+          </div>
+        </div>
+
+        <div class="soft-note">
+          <strong>Wat voor jou belangrijk is</strong>
+          <div class="muted">Thuis kunnen blijven, veilig bewegen en geen verwarring rond medicatie.</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Wie helpt je vandaag?</h3>
+        <p>Je staat er niet alleen voor.</p>
+
+        <div class="visit">
+          <strong>Lisa (dochter)</strong><br>
+          <span class="muted">Mantelzorger en hoofdcontact. Ze volgt mee op via de familiecockpit.</span>
+        </div>
+
+        <div class="visit">
+          <strong>Tom (zoon)</strong><br>
+          <span class="muted">Helpt met praktische zaken, zoals medicatie ophalen.</span>
+        </div>
+
+        <div class="visit">
+          <strong>Thuisverpleging</strong><br>
+          <span class="muted">Dagelijkse ondersteuning en opvolging van afgesproken zorgen.</span>
+        </div>
+
+        <div class="visit">
+          <strong>Verpleegkundige Karin – VitaFlow Nurseline</strong><br>
+          <span class="muted">Volgt op afstand mee en stemt af met de huisarts als dat nodig is.</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h3>Berichten van VitaFlow</h3>
+        <p>Duidelijk, vriendelijk en rustig.</p>
+
+        <div class="bubble"><strong>VitaFlow</strong><br>Goedemorgen André. We houden het vandaag eenvoudig. Zullen we beginnen met extra drinken?</div>
+        <div class="bubble user">Ja, dat is goed.</div>
+        <div class="bubble"><strong>VitaFlow</strong><br>Prima. Vergeet ook je rollator niet als je straks een stukje stapt.</div>
+        <div class="bubble"><strong>VitaFlow</strong><br>Als je je zwakker voelt, verward bent of je niet goed voelt, druk dan op de hulpknop.</div>
+      </article>
+
+      <article class="card">
+        <h3>Waarom VitaFlow meekijkt</h3>
+        <p>Na een ziekenhuisontslag gaat informatie soms verloren. VitaFlow helpt dat voorkomen.</p>
+
+        <div class="visit">
+          <strong>Medicatie</strong><br>
+          <span class="muted">Belangrijke informatie uit je ontslag wordt veilig opgevolgd.</span>
+        </div>
+
+        <div class="visit">
+          <strong>Mobiliteit</strong><br>
+          <span class="muted">Kleine, veilige bewegingen helpen om thuis sterker te blijven.</span>
+        </div>
+
+        <div class="visit">
+          <strong>Mentaal welzijn</strong><br>
+          <span class="muted">We volgen ook op of er signalen zijn van verwardheid of overbelasting.</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-3">
+      <article class="card">
+        <h3>Water extra</h3>
+        <div class="kpi" id="waterKpi">500 ml</div>
+        <div class="muted">Doel voor vandaag.</div>
+      </article>
+      <article class="card">
+        <h3>Beweging</h3>
+        <div class="kpi" id="moveKpi">1 korte wandeling</div>
+        <div class="muted">Met rollator en rustig tempo.</div>
+      </article>
+      <article class="card">
+        <h3>Opvolging</h3>
+        <div class="kpi" id="checkKpi">Actief</div>
+        <div class="muted">Thuisverpleging en nurseline volgen mee op.</div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    function markNeedHelp() {
+      document.getElementById('statusTitle').textContent = 'We zien dat je vandaag extra hulp kan gebruiken.';
+      document.getElementById('statusText').textContent = 'Familie, thuisverpleging of verpleegkundige Karin kan nu verwittigd worden.';
+      const dot = document.getElementById('statusDot');
+      dot.style.background = 'var(--danger)';
+      dot.style.boxShadow = '0 0 0 6px rgba(180,76,88,.12)';
+      document.getElementById('checkKpi').textContent = 'Extra review';
+    }
+  </script>
+</body>
+</html>
